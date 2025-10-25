@@ -6,6 +6,6 @@
 <div class="container mt-4">
     <h1>{{ $cliente["nome"] ?? 'Cliente' }}</h1>
     <p>Email: {{ $cliente["email"] ?? '-' }}</p>
-    <p>Telefone: {{ $cliente["telefone"] ?? '-' }}</p>
+    <p>bairro: {{ $cliente["bairro"] ?? '-' }}</p>
 </div>
 @endsection

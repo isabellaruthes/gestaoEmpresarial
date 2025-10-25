@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\cliente;
+use App\Models\produto;
 use Illuminate\Contracts\View\View;
 use Illuminate\Routing\Controller;
 
@@ -23,40 +25,44 @@ class AdminController extends Controller
         ['id' => 2, 'nome' => 'Fornecedor 2'],
     ];
 
-    public function login(): View {
+    public function login(): View
+    {
         return view("pages.admin.login");
     }
 
-    public function dashboard(): View {
+    public function dashboard(): View
+    {
         return view("pages.admin.dashboard");
     }
 
-    public function clientes(): View {
+    public function clientes(): View
+    {
+        $clientes = cliente::all();
 
-        return view("pages.admin.clientes.index", ['clientes' => $this->clients]);
+        return view("pages.admin.clientes.index", ['clientes' => $clientes]);
     }
 
-    public function show_cliente(int $id): View {
-        $cliente = [
-            'id' => $id,
-            'nome' => "Cliente $id",
-            'email' => "cliente{$id}@empresa.com",
-            'telefone' => '99999-9999'
-        ];
+    public function show_cliente(int $id): View
+    {
+        $cliente = cliente::find($id);
 
         return view("pages.admin.clientes.show", compact('cliente'));
     }
 
-    public function fornecedores(): View {
+    public function fornecedores(): View
+    {
 
         return view("pages.admin.fornecedores", ['fornecedores' => $this->fornecedores]);
     }
 
-    public function produtos(): View {
-        return view("pages.admin.produtos.index", ['produtos' => $this->products]);
+    public function produtos(): View
+    {
+        $produtosList = produto::all();
+        return view("pages.admin.produtos.index", ['produtos' => $produtosList]);
     }
 
-    public function find_product(string $slug): View {
+    public function find_product(string $slug): View
+    {
         $produto = collect($this->products)
             ->first(function ($produto) use ($slug) {
                 return $produto['id'] == $slug || str_contains($produto['nome'], $slug);

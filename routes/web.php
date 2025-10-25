@@ -18,6 +18,8 @@ Route::get('/sobre', [UserController::class, 'sobre']);
 Route::get("/login", [UserController::class, 'login']);
 Route::get("/cadastro", [UserController::class, 'cadastro']);
 
+Route::post('/cadastro', [UserController::class, 'store'])->name('users.store');
+
 Route::get("/admin/login", [AdminController::class, 'login']);
 
 Route::get("/admin/dashboard", [AdminController::class, 'dashboard']);
@@ -30,8 +32,13 @@ Route::get("/admin/fornecedores", [AdminController::class, 'fornecedores']);
 
 Route::get("/admin/produtos", [AdminController::class, 'produtos']);
 
+Route::get("/admin/produtos/create", [ProdutoController::class, 'create']);
+
+Route::post("/admin/produtos/create", [ProdutoController::class, 'create'])->name('produtos.store');
+
 Route::get("/admin/produtos/{slug}", [AdminController::class, 'find_product'])
-    ->where('slug', '[A-Za-z0-9\-]+');
+    ->where('slug', '[A-Za-z0-9-]+');
+
 
 
 
